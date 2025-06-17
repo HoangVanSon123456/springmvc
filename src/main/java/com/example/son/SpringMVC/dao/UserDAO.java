@@ -13,6 +13,6 @@ public interface UserDAO {
 
     List<User> findAll();
 
-    User findById(int id);
+    User findById(Integer id);
 
 }

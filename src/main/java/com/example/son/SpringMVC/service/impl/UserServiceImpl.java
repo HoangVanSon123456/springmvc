@@ -41,7 +41,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void delete(int id) {
+    public void delete(Integer id) {
         User user = userDAO.findById(id);
         if (user != null) {
             userDAO.delete(user);
@@ -60,6 +60,7 @@ public class UserServiceImpl implements UserService {
 
     private UserDTO convertToDTO(User user) {
         UserDTO userDTO = new UserDTO();
+        userDTO.setId(user.getId());
         userDTO.setName(user.getName());
         userDTO.setGender(user.getGender());
         userDTO.setAddress(user.getAddress());
@@ -68,7 +69,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDTO findById(int id) {
+    public UserDTO findById(Integer id) {
         User user = userDAO.findById(id);
         if (user != null) {
             return convertToDTO(user);

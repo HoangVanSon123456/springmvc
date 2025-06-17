@@ -3,83 +3,149 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout}">
 <head>
-    <title layout:fragment="title">User List</title>
+    <title layout:fragment="title">Danh sach</title>
 
     <style layout:fragment="style">
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #f8fafc;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        h1 {
+            color: #1e293b;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
         }
 
         a {
-            display: inline-block;
-            margin-bottom: 15px;
-            padding: 8px 12px;
-            background-color: #2ecc71;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            background-color: #10b981;
             color: white;
-            border-radius: 4px;
+            border-radius: 6px;
             text-decoration: none;
+            font-weight: 500;
+            transition: background-color 0.2s ease, transform 0.2s ease;
+        }
+
+        a:hover {
+            background-color: #059669;
+            transform: translateY(-2px);
         }
 
         table {
             width: 100%;
-            border-collapse: collapse;
+            border-collapse: separate;
+            border-spacing: 0;
             background: white;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            border-radius: 8px;
+            overflow: hidden;
+            margin-top: 1.5rem;
         }
 
         th, td {
-            padding: 12px;
-            border: 1px solid #ccc;
+            padding: 14px 16px;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
         }
 
         th {
-            background-color: #34495e;
+            background-color: #1e293b;
             color: white;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.03em;
+        }
+
+        td {
+            color: #475569;
+            font-size: 0.95rem;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
         }
 
         tr:hover {
-            background-color: #ecf0f1;
+            background-color: #f1f5f9;
+            transition: background-color 0.2s ease;
         }
 
         button {
-            background-color: #e74c3c;
+            background-color: #ef4444;
             color: white;
             border: none;
-            padding: 6px 10px;
-            border-radius: 4px;
+            padding: 8px 14px;
+            border-radius: 6px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.2s ease, transform 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
 
         button:hover {
-            background-color: #c0392b;
+            background-color: #dc2626;
+            transform: translateY(-1px);
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            table {
+                display: block;
+                overflow-x: auto;
+            }
+
+            th, td {
+                min-width: 120px;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            a, button {
+                width: 100%;
+                justify-content: center;
+                padding: 12px;
+            }
         }
     </style>
 </head>
 <body>
 <main layout:fragment="content">
     <h1>User List</h1>
-    <a th:href="@{/users/new}">➕ Add New User</a>
-
+    <a th:href="@{/users/new}">Them moi</a>
     <table>
         <thead>
         <tr>
-            <th>Name</th>
-            <th>Gender</th>
-            <th>Birthdate</th>
-            <th>Address</th>
-            <th>Action</th>
+            <th>ID</th>
+            <th>Tên</th>
+            <th>Giới tính</th>
+            <th>Ngày sinh</th>
+            <th>Địa chỉ</th>
+            <th>Hành động</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="user : ${users}">
+            <td th:text="${user.id}">ID</td>
             <td th:text="${user.name}">Name</td>
             <td th:text="${user.gender}">Gender</td>
-            <td th:text="${#dates.format(user.birthdate, 'dd/MM/yyyy')}">Birthdate</td>
+            <td th:text="${user.birthdate}">Birthdate</td>
             <td th:text="${user.address}">Address</td>
             <td>
-                <form th:action="@{'/users/delete/' + ${user.id}}" method="post">
-                    <button type="submit">🗑 Delete</button>
-                </form>
+                <a th:href="@{/users/edit/{id}(id=${user.id})}">Chỉnh sửa</a>
+                <a th:href="@{/users/delete/{id}(id=${user.id})}">Xoá</a>
             </td>
         </tr>
         </tbody>

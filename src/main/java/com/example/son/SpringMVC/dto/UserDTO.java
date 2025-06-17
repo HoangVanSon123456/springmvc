@@ -4,6 +4,7 @@ import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 
@@ -12,18 +13,18 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class UserDTO {
 
-    private int id;
+    private Integer id;
 
-    @NotBlank(message = "Name is required")
-    @Size(min = 6, message = "Name must be at least 6 characters")
+    @NotBlank(message = "Đây là trường bắt buộc")
+    @Size(min = 6, message = "Tên phải có ít nhất 6 ký tự")
     private String name;
 
-    @NotNull(message = "Gender is required")
+    @NotNull(message = "Đây là trường bắt buộc")
     private String gender;
 
-    @NotNull(message = "Birthdate is required")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate birthdate;
 
-    @NotBlank(message = "Address is required")
+    @NotBlank(message = "Đây là trường bắt buộc")
     private String address;
 }

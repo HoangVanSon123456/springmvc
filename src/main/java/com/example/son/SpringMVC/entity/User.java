@@ -19,16 +19,12 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
-    @NotBlank(message = "Name is required")
-    @Size(min = 6, message = "Name must be at least 6 characters")
     private String name;
 
-    @NotNull(message = "Gender is required")
     private String gender;
 
-    @NotNull(message = "Birthdate is required")
     private LocalDate birthdate;
 
     @NotBlank(message = "Address is required")
